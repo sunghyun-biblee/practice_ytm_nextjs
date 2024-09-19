@@ -1,0 +1,23 @@
+ci/cd
+
+ci: 지속적 통합 - github , test code, smell (sonaqube)
+cd: 지속적 배포 - nextjs app 최선버전으로 업데이트 도니ㅡㄴ것
+
+vercel : nextjs 배포하는 가장 쉬운 방법
+
+다양한 ci/cd 구성
+1. (SaaS)
+- vercel : 가장 쉬운 방법 
+
+2. (AWS)
+- aws ec2 nextjs github pull > build  (ec2 node.js 설치) > start
+- ec2 public ip -> port 4000 server 실행 -> portbind 
+
+3. (AWS + DOCKER)
+- nextjs > docker image > docker hub push > ec2 > docker image pull > docker run
+
+4. (AWS + DOCKER + CI/CD 툴 구축)
+- github push > docker umage (ci) > portainer (cd) > docker container run
+
+5. (AWS + DOCKER + K8S + CI/CD)
+- github push > docker umage (ci) > k8s (쿠버네틱스) > docker container
