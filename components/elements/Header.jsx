@@ -1,6 +1,45 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import headerBG from "@/public/img/HeaderBG_Img/headerBG.jpg";
+import UserIcon from "@/components/UserIcon";
+import PagePadding from "@/components/PagePadding";
+import { FaChromecast } from "react-icons/fa";
+import { FiSearch } from "react-icons/fi";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import Logo from "@/components/elements/Logo";
+import Navigator from "@/components/elements/Navigator";
+
+const HeaderDrawer = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <Drawer direction="left" open={isOpen} onOpenChange={setIsOpen}>
+      <DrawerTrigger>{children}</DrawerTrigger>
+      <DrawerContent className="w-[240px] h-full">
+        {/* Logo */}
+        {/* playList, Navigation */}
+        <div className="py-3">
+          <div className="px-3">
+            <Logo
+              isInDrawer={true}
+              onClickClose={() => setIsOpen(false)}
+            ></Logo>
+          </div>
+          <Navigator />
+        </div>
+      </DrawerContent>
+    </Drawer>
+  );
+};
 const Header = ({ children }) => {
   return (
     <header className="relative overflow-y-auto w-full h-full">
@@ -16,7 +55,33 @@ const Header = ({ children }) => {
           <div className="absolute h-[400px] top-0 bg-gradient-to-t from-black  w-full "></div>
         </div>
       </section>
-      <section className="absolute">{children}</section>
+      {/* searchSection */}
+      <section className="sticky">
+        <PagePadding>
+          <div className="h-[64px] flex flex-row justify-between items-center">
+            <article className="hidden lg:flex items-center h-[42px] min-w-[480px] bg-[rgba(0,0,0,0.34)] rounded-2xl px-[16px] gap-[16px] ">
+              <div>
+                <FiSearch size={24} />
+              </div>
+              <input
+                type="text"
+                className="h-full w-full bg-transparent"
+                placeholder="노래, 앨럼, 아티스트, 팟캐스트 검색"
+              />
+            </article>
+            <HeaderDrawer>
+              <article className="lg:hidden">
+                <Logo />
+              </article>
+            </HeaderDrawer>
+            <article className="flex flex-row gap-6 items-center">
+              <FaChromecast size={26} />
+              <UserIcon></UserIcon>
+            </article>
+          </div>
+        </PagePadding>
+      </section>
+      <section className="relative">{children}</section>
     </header>
   );
 };
