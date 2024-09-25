@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import headerBG from "@/public/img/HeaderBG_Img/headerBG.jpg";
 import UserIcon from "@/components/UserIcon";
 import PagePadding from "@/components/PagePadding";
@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/drawer";
 import Logo from "@/components/elements/Logo";
 import Navigator from "@/components/elements/Navigator";
+import { cn } from "../../lib/utils";
 
 const HeaderDrawer = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,8 +42,22 @@ const HeaderDrawer = ({ children }) => {
   );
 };
 const Header = ({ children }) => {
+  const [isScroll, setIsScroll] = useState(false);
+  const headRef = useRef();
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollValue = headRef?.current?.scrollTop;
+      setIsScroll(scrollValue !== 0);
+      console.log(scrollValue);
+    };
+    headRef?.current?.addEventListener("scroll", handleScroll);
+
+    return () => {
+      headRef?.current?.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <header className="relative overflow-y-auto w-full h-full">
+    <header className="relative overflow-y-auto w-full h-full" ref={headRef}>
       {/* bgSection */}
       <section className="absolute top-0 w-full">
         <div className="relative h-[400px] w-full">
@@ -56,10 +71,20 @@ const Header = ({ children }) => {
         </div>
       </section>
       {/* searchSection */}
-      <section className="sticky">
+      <section
+        className={cn(
+          "sticky top-0 left-0 z-10",
+          isScroll && "bg-black transition-colors duration-500"
+        )}
+      >
         <PagePadding>
           <div className="h-[64px] flex flex-row justify-between items-center">
-            <article className="hidden lg:flex items-center h-[42px] min-w-[480px] bg-[rgba(0,0,0,0.34)] rounded-2xl px-[16px] gap-[16px] ">
+            <article
+              className={cn(
+                "hidden lg:flex items-center h-[42px] min-w-[480px] bg-[rgba(0,0,0,0.34)] rounded-2xl px-[16px] gap-[16px] border",
+                isScroll && "border-neutral-500 transition-all duration-500"
+              )}
+            >
               <div>
                 <FiSearch size={24} />
               </div>
