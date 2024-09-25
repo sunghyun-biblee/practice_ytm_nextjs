@@ -18,7 +18,8 @@ import {
 } from "@/components/ui/drawer";
 import Logo from "@/components/elements/Logo";
 import Navigator from "@/components/elements/Navigator";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
+import { useUIState } from "@/hooks/useUIState";
 
 const HeaderDrawer = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,6 +43,7 @@ const HeaderDrawer = ({ children }) => {
   );
 };
 const Header = ({ children }) => {
+  const { headerImageSrc } = useUIState();
   const [isScroll, setIsScroll] = useState(false);
   const headRef = useRef();
   useEffect(() => {
@@ -61,7 +63,15 @@ const Header = ({ children }) => {
       {/* bgSection */}
       <section className="absolute top-0 w-full">
         <div className="relative h-[400px] w-full">
-          <Image alt="mediaItem" className="object-cover" fill src={headerBG} />
+          <Image
+            alt="mediaItem"
+            className="object-cover"
+            fill
+            src={
+              headerImageSrc ||
+              "https://images.unsplash.com/photo-1662139295991-0c32cfebad20?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            }
+          />
           {/* nextjs 에서 이미지를 사용할 때 방법으로는 nextjs에서 제공하는 
           Image 컴포넌트를 통해 경로를 입력한 뒤,
           1. 상위 태그에 relative를 적용하고 Image 컴포넌트에 fill을 적용하거나

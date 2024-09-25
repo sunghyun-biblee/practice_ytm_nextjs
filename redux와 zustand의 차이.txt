@@ -1,0 +1,4 @@
+redux와 zustand의 차이
+1. provider의 유무 
+redux의 경우 전체 어플리케이션을 감싸는 provider를 필요로 함
+zustand는 필요없음 ( react의 엑스터널 스토리지를 사용해서 상태를 관리하기 때문)
