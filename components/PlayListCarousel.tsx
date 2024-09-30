@@ -28,7 +28,7 @@ const PlayListCarousel: React.FC<PlayListCarouselProps> = ({
         <div className="flex flex-row justify-between items-end my-2">
           <article className="flex flex-row gap-3">
             {Thumbnail}
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center gap-1">
               <div className="text-neutral-500">
                 {subTitle && <div>{subTitle}</div>}
               </div>
@@ -45,10 +45,13 @@ const PlayListCarousel: React.FC<PlayListCarouselProps> = ({
             </div>
           </div>
         </div>
-        <CarouselContent>
+        <CarouselContent className="mt-4">
           {playlistArray?.map((playlist, index) => {
             return (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              <CarouselItem
+                key={index}
+                className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+              >
                 <PlayListCard playlist={playlist} />
               </CarouselItem>
             );
