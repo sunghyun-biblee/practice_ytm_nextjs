@@ -14,12 +14,13 @@ const Logo = ({ isInDrawer = false, onClickClose = () => {} }) => {
   };
   const onClickMenu = () => {};
 
+  console.log(isInDrawer);
   return (
     <section className="flex flex-row items-center gap-3">
       {isInDrawer ? (
         <IconButton
           onClickIcon={onClickClose}
-          icon={<IoCloseOutline size={30} />}
+          icon={<IoCloseOutline size={32} />}
         />
       ) : (
         <IconButton
