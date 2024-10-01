@@ -32,14 +32,14 @@ const PlayListCard = ({ playlist = {} } = {}) => {
           }
           fill={true}
           alt="thumbnail"
-          className="object-cover"
+          className="object-cover rounded-md"
         />
         <div className="hidden relative group-hover:block bg-gradient-to-b from-[rgba(0,0,0,0.5)] top-0 w-full h-[136px]">
           <div className="absolute top-2 right-4">
             <IconButton icon={<MdMoreVert size={20} />} />
           </div>
-          <div className="absolute bottom-4 right-4 flex items-center justify-center transform-gpu transition-transform hover:scale-125 bg-[rgba(0,0,0,0.4)] w-[45px] h-[45px] rounded-full hover:bg-[rgba(0,0,0,0.8)] pl-1">
-            <FiPlay size={24} />
+          <div className="absolute bottom-4 right-4 flex items-center justify-center transform-gpu transition-transform hover:scale-125 bg-[rgba(0,0,0,0.4)] w-[45px] h-[45px] rounded-full hover:bg-[rgba(0,0,0,0.9)] pl-1">
+            <FiPlay size={24} color="#5ea3ec" />
           </div>
         </div>
       </section>
