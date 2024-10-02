@@ -1,12 +1,15 @@
 "use client";
 import React from "react";
 import { IoMdPlayCircle } from "react-icons/io";
+import usePlayerState from "@/hooks/usePlayerState";
 
 const PlaylistNav = ({ playlist }) => {
+  const { addSongList } = usePlayerState();
   const { id, owner, playlistName, songList } = playlist;
 
   const onClickPlay = () => {
     // todo play music
+    addSongList(songList);
   };
   return (
     <li

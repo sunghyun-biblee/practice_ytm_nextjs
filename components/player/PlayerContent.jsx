@@ -15,14 +15,21 @@ import { RxLoop } from "react-icons/rx";
 import { ClipLoader } from "react-spinners";
 import { useAudio } from "react-use";
 import usePlayerState from "../../hooks/usePlayerState";
+import { cn } from "../../lib/utils";
 
 const PlayerContent = () => {
-  const { activeSong, prevPlayerQueue, nextPlayerQueue, playBack, playNext } =
-    usePlayerState();
+  const {
+    isVisiblePlayer,
+    activeSong,
+    prevPlayerQueue,
+    nextPlayerQueue,
+    playBack,
+    playNext,
+  } = usePlayerState();
   const [audio, state, controls, ref] = useAudio({
     // src: "/music/50meru - Canopus.mp4",
     src: activeSong?.src,
-    autoPlay: false,
+    autoPlay: true,
   });
 
   const isLoading = activeSong?.src && state.buffered?.length === 0;
@@ -38,10 +45,13 @@ const PlayerContent = () => {
     controls.pause();
   };
   const onClickPrevBtn = () => {
-    if (state.playing && state.tiem > 10) {
+    console.log(state.playing);
+    console.log(state.time);
+    if (state.playing && state.time > 10) {
       controls.seek(0);
       return;
     }
+
     if (prevPlayerQueue.length === 0) return;
     playBack();
   };
@@ -62,7 +72,12 @@ const PlayerContent = () => {
     };
   }, [ref, onClickNextBtn]);
   return (
-    <div className="w-full h-full relative">
+    <div
+      className={cn(
+        "w-full h-[0px] relative transition-all duration-150 opacity-0",
+        isVisiblePlayer && "opacity-100 h-full"
+      )}
+    >
       <div className="absolute top-[-16px] w-full">
         <PlayerSlider
           className="w-full"
@@ -74,6 +89,7 @@ const PlayerContent = () => {
               controls.play();
             }
           }}
+          max={state.duration}
         />
       </div>
       <div>{audio}</div>

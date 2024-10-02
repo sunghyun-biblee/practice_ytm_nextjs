@@ -15,7 +15,7 @@ interface PlayerState {
 }
 
 const usePlayerState = create<PlayerState>((set) => ({
-  isVisiblePlayer: true,
+  isVisiblePlayer: false,
   setIsVisiblePlayer: (isVisiblePlayer: boolean) =>
     set({
       isVisiblePlayer,
@@ -23,9 +23,9 @@ const usePlayerState = create<PlayerState>((set) => ({
   activeSong: null,
   prevPlayerQueue: [],
   nextPlayerQueue: [
+    dummyAllSongList[0],
     dummyAllSongList[1],
     dummyAllSongList[2],
-    dummyAllSongList[3],
   ],
   //  기능
   addSongList: (songList: Song[]) => {

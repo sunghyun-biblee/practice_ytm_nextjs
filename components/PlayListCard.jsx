@@ -6,8 +6,10 @@ import { useRouter } from "next/navigation";
 import { MdMoreVert } from "react-icons/md";
 import { FiPlay } from "react-icons/fi";
 import IconButton from "./elements/IconButton";
+import usePlayerState from "../hooks/usePlayerState";
 
 const PlayListCard = ({ playlist = {} } = {}) => {
+  const { addSongList } = usePlayerState();
   const { push } = useRouter();
   const { id, owner = "", playlistName = "", songList = [] } = playlist ?? {};
   const songListLen = songList?.length;
@@ -19,8 +21,10 @@ const PlayListCard = ({ playlist = {} } = {}) => {
     }
   };
 
-  const onClickPlay = () => {
+  const onClickPlay = (e) => {
     //  Todo Play
+    e.stopPropagation();
+    addSongList(songList);
   };
   return (
     <article className="h-[240px] cursor-pointer group">
@@ -39,7 +43,7 @@ const PlayListCard = ({ playlist = {} } = {}) => {
             <IconButton icon={<MdMoreVert size={20} />} />
           </div>
           <div className="absolute bottom-4 right-4 flex items-center justify-center transform-gpu transition-transform hover:scale-125 bg-[rgba(0,0,0,0.4)] w-[45px] h-[45px] rounded-full hover:bg-[rgba(0,0,0,0.9)] pl-1">
-            <FiPlay size={24} color="#5ea3ec" />
+            <FiPlay size={24} color="#5ea3ec" onClick={onClickPlay} />
           </div>
         </div>
       </section>
