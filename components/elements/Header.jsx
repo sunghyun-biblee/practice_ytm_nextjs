@@ -1,25 +1,15 @@
 "use client";
-import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import headerBG from "@/public/img/HeaderBG_Img/headerBG.jpg";
-import UserIcon from "@/components/UserIcon";
-import PagePadding from "@/components/PagePadding";
-import { FaChromecast } from "react-icons/fa";
-import { FiSearch } from "react-icons/fi";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
 import Logo from "@/components/elements/Logo";
 import Navigator from "@/components/elements/Navigator";
-import { cn } from "@/lib/utils";
+import PagePadding from "@/components/PagePadding";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import UserIcon from "@/components/UserIcon";
 import { useUIState } from "@/hooks/useUIState";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { FaChromecast } from "react-icons/fa";
+import { FiSearch } from "react-icons/fi";
 
 const HeaderDrawer = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,15 +37,18 @@ const Header = ({ children }) => {
   const [isScroll, setIsScroll] = useState(false);
   const headRef = useRef();
   useEffect(() => {
+    const currentHeadRef = headRef.current;
+
     const handleScroll = () => {
-      const scrollValue = headRef?.current?.scrollTop;
+      const scrollValue = currentHeadRef?.scrollTop;
       setIsScroll(scrollValue !== 0);
       console.log(scrollValue);
     };
-    headRef?.current?.addEventListener("scroll", handleScroll);
+
+    currentHeadRef?.addEventListener("scroll", handleScroll);
 
     return () => {
-      headRef?.current?.removeEventListener("scroll", handleScroll);
+      currentHeadRef?.removeEventListener("scroll", handleScroll);
     };
   }, []);
   return (
