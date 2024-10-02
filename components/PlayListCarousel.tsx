@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/carousel";
 
 interface PlayListCarouselProps {
-  title: string;
+  title?: string;
   subTitle?: string;
   Thumbnail?: React.ReactNode;
   playlistArray?: PlayList[];
